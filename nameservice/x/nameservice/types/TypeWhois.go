@@ -10,10 +10,10 @@ import (
 var MinNamePrice = sdk.Coins{sdk.NewInt64Coin("nametoken", 1)}
 
 type Whois struct {
-	Creator sdk.AccAddress `json:"creator" yaml:"owner"`
-	ID      string         `json:"id" yaml:"id"`
-	Value   string         `json:"value" yaml:"value"`
-	Price   sdk.Coins      `json:"price" yaml:"price"`
+	Owner sdk.AccAddress `json:"creator" yaml:"owner"`
+	ID    string         `json:"id" yaml:"id"`
+	Value string         `json:"value" yaml:"value"`
+	Price sdk.Coins      `json:"price" yaml:"price"`
 }
 
 func NewWhois() Whois {
@@ -25,5 +25,5 @@ func NewWhois() Whois {
 func (w Whois) string() string {
 	return strings.TrimSpace(fmt.Sprintf(`Owner: %s
 	Value: %s
-	Price: %s`, w.Creator, w.Value, w.Price))
+	Price: %s`, w.Owner, w.Value, w.Price))
 }

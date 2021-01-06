@@ -22,10 +22,10 @@ import (
 	"github.com/cosmos/cosmos-sdk/x/params"
 	"github.com/cosmos/cosmos-sdk/x/staking"
 	"github.com/cosmos/cosmos-sdk/x/supply"
-	"github.com/user/nameservice/x/nameservice"
-	nameservicekeeper "github.com/user/nameservice/x/nameservice/keeper"
-	nameservicetypes "github.com/user/nameservice/x/nameservice/types"
-	// this line is used by starport scaffolding # 1
+	"github.com/cosmos/sdk-tutorials/nameservice/nameservice/x/nameservice"
+	nameservicekeeper "github.com/cosmos/sdk-tutorials/nameservice/nameservice/x/nameservice/keeper"
+	nameservicetypes "github.com/cosmos/sdk-tutorials/nameservice/nameservice/x/nameservice/types"
+	// this line is used by starport scaffolding
 )
 
 const appName = "nameservice"
@@ -45,8 +45,7 @@ var (
 	)
 
 	maccPerms = map[string][]string{
-		auth.FeeCollectorName: nil,
-		// this line is used by starport scaffolding # 2.1
+		auth.FeeCollectorName:     nil,
 		staking.BondedPoolName:    {supply.Burner, supply.Staking},
 		staking.NotBondedPoolName: {supply.Burner, supply.Staking},
 	}
@@ -122,7 +121,6 @@ func NewInitApp(
 	app.subspaces[auth.ModuleName] = app.paramsKeeper.Subspace(auth.DefaultParamspace)
 	app.subspaces[bank.ModuleName] = app.paramsKeeper.Subspace(bank.DefaultParamspace)
 	app.subspaces[staking.ModuleName] = app.paramsKeeper.Subspace(staking.DefaultParamspace)
-	// this line is used by starport scaffolding # 5.1
 
 	app.accountKeeper = auth.NewAccountKeeper(
 		app.cdc,
@@ -152,12 +150,8 @@ func NewInitApp(
 		app.subspaces[staking.ModuleName],
 	)
 
-	// this line is used by starport scaffolding # 5.2
-
 	app.stakingKeeper = *stakingKeeper.SetHooks(
-		staking.NewMultiStakingHooks(
-		// this line is used by starport scaffolding # 5.3
-		),
+		staking.NewMultiStakingHooks(),
 	)
 
 	app.nameserviceKeeper = nameservicekeeper.NewKeeper(
@@ -178,13 +172,9 @@ func NewInitApp(
 		// this line is used by starport scaffolding # 6
 	)
 
-	app.mm.SetOrderEndBlockers(
-		staking.ModuleName,
-		// this line is used by starport scaffolding # 6.1
-	)
+	app.mm.SetOrderEndBlockers(staking.ModuleName)
 
 	app.mm.SetOrderInitGenesis(
-		// this line is used by starport scaffolding # 6.2
 		staking.ModuleName,
 		auth.ModuleName,
 		bank.ModuleName,
