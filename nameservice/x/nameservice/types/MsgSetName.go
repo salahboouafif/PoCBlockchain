@@ -5,23 +5,21 @@ import (
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 )
 
+// MsgSetName defines a SetName message
 var _ sdk.Msg = &MsgSetName{}
 
-// MsgSetName defines a SetName message
 type MsgSetName struct {
-	ID    string         `json:"id" yaml:"id"`
 	Owner sdk.AccAddress `json:"owner" yaml:"owner"`
 	Value string         `json:"value" yaml:"value"`
-	Price string         `json:"price" yaml:"price"`
+	Name  string         `json:"name" yaml:"name"`
 }
 
 // NewMsgSetName is a constructor function for MsgSetName
-func NewMsgSetName(owner sdk.AccAddress, id string, value string, price string) MsgSetName {
+func NewMsgSetName(owner sdk.AccAddress, name string, value string) MsgSetName {
 	return MsgSetName{
-		ID:    id,
 		Owner: owner,
 		Value: value,
-		Price: price,
+		Name:  name,
 	}
 }
 
@@ -42,12 +40,13 @@ func (msg MsgSetName) GetSignBytes() []byte {
 	return sdk.MustSortJSON(bz)
 }
 
+// ValidateBasic runs stateless checks on the message
 func (msg MsgSetName) ValidateBasic() error {
 	if msg.Owner.Empty() {
-		return sdkerrors.Wrap(sdkerrors.ErrInvalidAddress, "creator can't be empty")
+		return sdkerrors.Wrap(sdkerrors.ErrInvalidAddress, msg.Owner.String())
 	}
-	if len(msg.ID) == 0 || len(msg.Value) == 0 {
-		return sdkerrors.Wrap(sdkerrors.ErrUnknownRequest, "ID and/or Value cannot be empty")
+	if len(msg.Name) == 0 || len(msg.Value) == 0 {
+		return sdkerrors.Wrap(sdkerrors.ErrUnknownRequest, "Name and/or Value cannot be empty")
 	}
 	return nil
 }

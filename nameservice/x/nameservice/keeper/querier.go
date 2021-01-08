@@ -7,7 +7,7 @@ import (
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
-	"github.com/cosmos/sdk-tutorials/nameservice/nameservice/x/nameservice/types"
+	"github.com/user/nameservice/x/nameservice/types"
 )
 
 // NewQuerier creates a new querier for nameservice clients.
