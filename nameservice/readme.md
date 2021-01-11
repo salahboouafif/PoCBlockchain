@@ -4,19 +4,18 @@
 
 ## Get started
 
-## Build the application
-
-    make install
-## run the application
+## Run the application
 ```
 starport serve
 ```
 `serve` command installs dependencies, initializes and runs the application.
+Instead of  `starport serve` we can use :
 
-Instead of  `starport serve` we can use : 
- 
-      ./init.sh
-      nameserviced start
+## Build, initialise and start the application
+
+    make install
+    ./init.sh
+    nameserviced start
 
 ## Test the application 
  First check the accounts to ensure they have funds 
